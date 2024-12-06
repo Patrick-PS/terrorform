@@ -1,6 +1,3 @@
-
-
-
 variable "Appname" {
     type = string
     description = "SVM naam"

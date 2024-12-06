@@ -6,7 +6,7 @@ locals{
 module "OntapSVM" {
   source = "../Modules/Ontap/SVMwithVolumes/0.1"
   #version = "0.1"
-  Appname = "PatFirstApp"
+  Appname = "PatFirstGit"
   Environment = "TEST"
 
 }
@@ -14,7 +14,7 @@ module "OntapSVM" {
 module "OntapSVMtwee" {
   source = "../Modules/Ontap/SVMwithVolumes/0.1"
   #version = "0.1"
-  Appname = "PatSecondApp"
+  Appname = "PatSecondGit"
   Environment = "test"
 
 

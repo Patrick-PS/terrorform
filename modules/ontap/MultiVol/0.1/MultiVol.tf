@@ -20,6 +20,13 @@ variable "VolSizeUnit" {
   }
 }
 
+variable "SVMname" {
+    type = string
+    description = "SVM name"
+    default="GreedyMoFo"
+}
+
+
 locals{
  validate_certs=false
  filer="vartofil001"
@@ -61,7 +68,7 @@ data "netapp-ontap_storage_aggregates_data_source" "all_aggregates" {
 
 resource "netapp-ontap_svm_resource" "baseSVM" {
   cx_profile_name = "OntapProfile"
-  name = "PatTest_GreedyMoFo"
+  name = var.SVMname
   snapshot_policy = "default"
   subtype         = "default"
   language        = "c.utf_8"
@@ -81,6 +88,10 @@ resource "netapp-ontap_storage_volume_resource" "volumes" {
     size_unit = var.VolSizeUnit
   }
   space_guarantee="none"
+  nas={
+    junction_path="/${resource.netapp-ontap_svm_resource.baseSVM.name}_Volume${count.index+1}"
+  }
+  
   depends_on = [netapp-ontap_svm_resource.baseSVM]
   count = var.VolCount
 }

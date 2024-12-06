@@ -61,9 +61,9 @@ output "AggrsAvailable"{
 resource "netapp-ontap_svm_resource" "terraformSVM" {
   cx_profile_name = "vartofil001"
   name = "TF_${var.Appname}"
-  snapshot_policy = "default"
+  snapshot_policy = "none"
   subtype         = "default"
-  language        = "c.utf_8"
+  language        = "sk"
   ipspace         = "Default"
   max_volumes     = "unlimited"
   #  #aggregates = [{name = "vartofil001_01_NVME_SSD_1"},{name = "vartofil001_02_NVME_SSD_1"}]

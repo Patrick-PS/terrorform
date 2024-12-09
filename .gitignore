@@ -1,0 +1,9 @@
+*/.terraform/providers/*
+*/terraform.tfstate
+*/terraform.tfstate.backup
+test?/.terraform/*
+*.terraform.lock.hcl
+modules/ontap/MultiVol/0.1/terraform.tfstate
+modules/ontap/MultiVol/0.1/terraform.tfstate.backup
+modules/ontap/MultiVol/0.1/.terraform/providers/registry.terraform.io/netapp/netapp-ontap/1.1.4/*
+*/.terraform/providers/*

@@ -8,6 +8,11 @@ variable "Volumename" {
     description = "Volume naam"
 }
 
+variable "Aggrname" {
+    type = string
+    description = "Aggregate naam"
+}
+
 variable "VolSize" {
     type = number
     description = "Size of each volume"
@@ -52,32 +57,21 @@ provider "netapp-ontap" {
 }
 
 
-data "netapp-ontap_storage_aggregates_data_source" "all_aggregates" {
-    # required to know which system to interface with
-    cx_profile_name = "OntapProfile"
-      filter = {
-        #name = "NA1_SSD"
-       #"e06cd74e-8b98-48e2-9028-8bf3ccc2b619"
-      }
-   
-}
-
-
 
 resource "netapp-ontap_storage_volume_resource" "volume_1" {
   cx_profile_name = "OntapProfile"
   svm_name = var.SVMname
-  aggregates = [{name=data.netapp-ontap_storage_aggregates_data_source.all_aggregates.storage_aggregates[0].name}]
-    name = var.Volumename
+  aggregates = [{name=var.Aggrname}]
+  name = var.Volumename
   space = {
     size = var.VolSize
-    size_unit = var.VolSizeUnit
+    size_unit = lower(var.VolSizeUnit)
   }
   #depends_on = [netapp-ontap_svm_resource.terraformSVM]
   #count =0
 }
 
 
-output "CreatedVol"{
+output "result"{
  value = resource.netapp-ontap_storage_volume_resource.volume_1
 }

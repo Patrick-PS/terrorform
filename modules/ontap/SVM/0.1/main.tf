@@ -59,6 +59,6 @@ resource "netapp-ontap_svm_resource" "terraformSVM" {
 
 
 
-output  "CreatedSVM"{
+output  "result"{
   value = netapp-ontap_svm_resource.terraformSVM
 }

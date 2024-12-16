@@ -9,5 +9,5 @@ locals{
 
 
 output "Auth"{
- value = [local.Creds][0]
+ value = local.Creds
 }

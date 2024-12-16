@@ -24,13 +24,8 @@ variable "VolSizeUnit" {
   }
 }
 
-
-
-locals{
- validate_certs=false
- filer= "vartofil001"
- username=  "admin"
- password= "Welkom01"
+module "TestCreds" {
+  source = "../../Filers/vartofil001"
 }
 
 
@@ -48,13 +43,14 @@ provider "netapp-ontap" {
   connection_profiles = [
     {
       name = "OntapProfile"
-      hostname = local.filer
-      username = local.username
-      password = local.password
-      validate_certs = local.validate_certs
+      hostname =       module.TestCreds.Auth.filer
+      username =       module.TestCreds.Auth.username
+      password =       module.TestCreds.Auth.password
+      validate_certs = module.TestCreds.Auth.validate_certs
     }
 	]
 }
+
 
 data "netapp-ontap_storage_aggregates_data_source" "all_aggregates" {
     # required to know which system to interface with
@@ -83,5 +79,5 @@ resource "netapp-ontap_storage_volume_resource" "volume_1" {
 
 
 output "CreatedVol"{
- value = [resource.netapp-ontap_storage_volume_resource.volume_1.name]
+ value = resource.netapp-ontap_storage_volume_resource.volume_1
 }
